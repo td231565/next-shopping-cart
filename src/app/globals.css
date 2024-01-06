@@ -33,3 +33,11 @@ body {
 .cart-badge {
   @apply absolute font-bold text-orange-600 ml-4 mt-1 text-center w-4;
 }
+
+.btn {
+  @apply rounded bg-gray-100 text-black py-2 px-4 shadow outline-none hover:bg-gray-200 active:bg-gray-300 dark:text-white dark:bg-gray-800 dark:hover:bg-gray-700;
+}
+
+.btn--primary {
+  @apply bg-amber-300 hover:bg-amber-400 active:bg-amber-500;
+}
