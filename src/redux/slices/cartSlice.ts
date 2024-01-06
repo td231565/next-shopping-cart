@@ -2,8 +2,9 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
 import Cookies from "js-cookie";
 import type { Product } from "@/utils/data";
+import { addDecimals } from "@/utils/calculate";
 
-interface CartItem extends Product {
+export interface CartItem extends Product {
   qty: number;
 }
 export interface CartState {

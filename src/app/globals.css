@@ -26,12 +26,18 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+input,
+select,
+textarea {
+  @apply rounded border p-2 outline-none ring-indigo-300 focus:ring dark:text-white dark:bg-gray-800;
+}
+
 .card {
   @apply mb-5 block rounded-lg border border-gray-200 shadow-md;
 }
 
 .cart-badge {
-  @apply absolute font-bold text-orange-600 ml-4 mt-1 text-center w-4;
+  @apply font-bold text-orange-600 ml-4 mt-1 text-center w-4;
 }
 
 .btn {

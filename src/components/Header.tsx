@@ -1,10 +1,12 @@
 import Link from "next/link";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/redux/hooks";
 import type { RootState } from "@/redux/store";
 
 export default function Header() {
-  const { loading, cartItems } = useSelector((state: RootState) => state.cart);
+  const { loading, cartItems } = useAppSelector(
+    (state: RootState) => state.cart
+  );
 
   return (
     <header>
@@ -13,7 +15,9 @@ export default function Header() {
           Shopping Cart
         </Link>
         <div>
-          <span className="cart-badge">0</span>
+          <span className="cart-badge">
+            {loading ? "" : cartItems.reduce((acc, curr) => acc + curr.qty, 0)}
+          </span>
           <Link href="/cart">Cart</Link>
         </div>
       </nav>
