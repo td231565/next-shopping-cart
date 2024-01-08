@@ -4,9 +4,12 @@ import { useEffect } from "react";
 import CartSidebar from "./CartSidebar";
 import Header from "./Header";
 import { hideLoading } from "@/redux/slices/cartSlice";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { usePathname } from "next/navigation";
 
 export default function App({ children }: { children: React.ReactNode }) {
+  const { loading, cartItems } = useAppSelector((state) => state.cart);
+  const pathname = usePathname();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -15,7 +18,16 @@ export default function App({ children }: { children: React.ReactNode }) {
 
   return (
     <div>
-      <div className="mr-32">
+      <div
+        className={`${
+          loading
+            ? ""
+            : cartItems.length > 0 &&
+              (pathname === "/" || pathname.indexOf("/product/") >= 0)
+            ? "mr-32"
+            : ""
+        }`}
+      >
         <Header />
         <main className="p-4">{children}</main>
       </div>

@@ -1,6 +1,6 @@
 # Shopping Cart
 
-This is created by course [Amazon Clone Shopping Cart For Beginners By Next.js 13](https://www.youtube.com/watch?v=RDxWB9Dh0tg)
+This is created by following course: [Amazon Clone Shopping Cart For Beginners By Next.js 13](https://www.youtube.com/watch?v=RDxWB9Dh0tg)
 
 ## Environment
 
@@ -10,7 +10,21 @@ This is created by course [Amazon Clone Shopping Cart For Beginners By Next.js 1
 
 ## Getting Started
 
-First, run the development server:
+First, clone this repo to local.
+
+```bash
+get clone
+```
+
+Install dependencies:
+
+```bash
+yarn install
+# or
+pnpm install
+```
+
+Run the development server:
 
 ```bash
 yarn dev

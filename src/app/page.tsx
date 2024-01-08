@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/Image";
 import { data } from "@/utils/data";
 import type { Product } from "@/utils/data";
 import ProductItem from "@/components/ProductItem";

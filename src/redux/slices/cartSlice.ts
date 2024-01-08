@@ -7,26 +7,49 @@ import { addDecimals } from "@/utils/calculate";
 export interface CartItem extends Product {
   qty: number;
 }
+export interface ShippingAddressForm {
+  [fullName: string]: string;
+  // fullName: string;
+  address: string;
+  city: string;
+  postalCode: string;
+  country: string;
+}
+export interface PaymentMethodForm {
+  paymentMethod: string;
+}
 export interface CartState {
   loading: boolean;
+  showSidebar: boolean;
   cartItems: CartItem[];
   itemsPrice: number;
   shippingPrice: number;
+  shippingAddress: ShippingAddressForm;
+  paymentMethod: string;
   taxPrice: number;
   totalPrice: number;
 }
 
-const initialState: CartState = {
-  loading: true,
-  cartItems: [],
-  itemsPrice: 0,
-  shippingPrice: 0,
-  taxPrice: 0,
-  totalPrice: 0,
-};
+const cartCookie = Cookies.get("cart");
+const initialState: CartState = cartCookie
+  ? {
+      ...JSON.parse(cartCookie),
+      loading: true,
+      showSidebar: false,
+    }
+  : {
+      loading: true,
+      showSidebar: false,
+      cartItems: [],
+      itemsPrice: 0,
+      shippingPrice: 0,
+      shippingAddress: {},
+      paymentMethod: "",
+      taxPrice: 0,
+      totalPrice: 0,
+    };
 
 type CartPriceName = "itemsPrice" | "shippingPrice" | "taxPrice";
-
 const cartPrice: CartPriceName[] = ["itemsPrice", "shippingPrice", "taxPrice"];
 
 const calcFee = (state: CartState) => {
@@ -67,13 +90,30 @@ const cartSlice = createSlice({
       calcFee(state);
       Cookies.set("cart", JSON.stringify(state));
     },
+    saveShippingAddress: (
+      state,
+      action: PayloadAction<ShippingAddressForm>
+    ) => {
+      state.shippingAddress = action.payload;
+      Cookies.set("cart", JSON.stringify(state));
+    },
+    savePaymentMethod: (state, action: PayloadAction<string>) => {
+      state.paymentMethod = action.payload;
+      Cookies.set("cart", JSON.stringify(state));
+    },
     hideLoading: (state) => {
       state.loading = false;
     },
   },
 });
 
-export const { addToCart, removeFromCart, hideLoading } = cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  hideLoading,
+  saveShippingAddress,
+  savePaymentMethod,
+} = cartSlice.actions;
 
 export const getCartLoading = (state: RootState) => state.cart.loading;
 

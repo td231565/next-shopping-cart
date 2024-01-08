@@ -1,7 +1,7 @@
 import React from "react";
 import type { Product } from "@/utils/data";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "next/Image";
 import ProductRate from "./ProductRate";
 import AddToCart from "./AddToCart";
 

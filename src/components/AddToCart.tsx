@@ -8,9 +8,9 @@ import { useRouter } from "next/navigation";
 
 interface Param {
   product: Product;
-  showQty: boolean;
-  redirect: boolean;
-  increasePerClick: boolean;
+  showQty?: boolean;
+  redirect?: boolean;
+  increasePerClick?: boolean;
 }
 
 export default function AddToCart({
@@ -61,7 +61,6 @@ export default function AddToCart({
                 </option>
               ))}
             </select>
-            <span>' '</span>
           </div>
         </div>
       )}

@@ -1,12 +1,11 @@
 import Link from "next/link";
 import React from "react";
 import { useAppSelector } from "@/redux/hooks";
-import type { RootState } from "@/redux/store";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
-  const { loading, cartItems } = useAppSelector(
-    (state: RootState) => state.cart
-  );
+  const { loading, cartItems } = useAppSelector((state) => state.cart);
+  const pathname = usePathname();
 
   return (
     <header>
@@ -19,6 +18,9 @@ export default function Header() {
             {loading ? "" : cartItems.reduce((acc, curr) => acc + curr.qty, 0)}
           </span>
           <Link href="/cart">Cart</Link>
+          {!loading && cartItems.length > 0 && pathname !== "/cart" && (
+            <div className="caret"></div>
+          )}
         </div>
       </nav>
     </header>

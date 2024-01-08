@@ -3,12 +3,13 @@ import Link from "next/link";
 import Image from "next/Image";
 import { addToCart, removeFromCart } from "@/redux/slices/cartSlice";
 import type { CartItem } from "@/redux/slices/cartSlice";
+import { usePathname } from "next/navigation";
 
 export default function CartSidebar() {
   const { loading, cartItems, itemsPrice } = useAppSelector(
     (state) => state.cart
   );
-
+  const pathname = usePathname();
   const dispatch = useAppDispatch();
 
   const addToCartHandler = (product: CartItem, qty: number) => {
@@ -20,7 +21,16 @@ export default function CartSidebar() {
   };
 
   return (
-    <div className="fixed top-0 right-0 w-32 h-full shadow-lg border-1 border-l-gray-700 overflow-scroll">
+    <div
+      className={`${
+        loading
+          ? ""
+          : cartItems.length > 0 &&
+            (pathname === "/" || pathname.indexOf("/product/") >= 0)
+          ? "fixed top-0 right-0 w-32 h-full shadow-lg border-1 border-l-gray-700 overflow-scroll"
+          : "hidden"
+      }`}
+    >
       {loading ? (
         <div className="py-5 px-2">Loading...</div>
       ) : cartItems.length === 0 ? (
@@ -30,7 +40,7 @@ export default function CartSidebar() {
           <div className="p-2 flex flex-col items-center border-b border-b-gray-600">
             <p>subtotal</p>
             <p className="font-bold text-orange-700">$ {itemsPrice}</p>
-            <div>
+            <div className="my-2">
               <Link
                 href="/cart"
                 className="w-full text-center p-1 rounded-2xl border-2"
