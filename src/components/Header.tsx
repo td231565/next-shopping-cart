@@ -12,7 +12,7 @@ export default function Header() {
     <header>
       <nav className="flex justify-between items-center h-12 px-4 shadow-md bg-gray-800 text-white">
         <Link href="/" className="text-lg font-bold">
-          Shopping Cart
+          Pokemon Souvenir
         </Link>
         <div>
           <Link href="/cart" className="relative">

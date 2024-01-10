@@ -5,9 +5,11 @@ export default function CheckoutWizard({ activeStep = 0 }) {
         (step, idx) => (
           <div
             key={step}
-            className={`flex-1 border-b-2 text-center ${
-              idx <= activeStep
-                ? "border-indigo-500 text-indigo-500"
+            className={`flex-1 border-b-2 flex items-center justify-center text-center ${
+              idx < activeStep
+                ? "border-indigo-300 text-indigo-500"
+                : idx === activeStep
+                ? "border-indigo-500 text-indigo-500 font-bold"
                 : "border-gray-400 text-gray-400"
             }`}
           >

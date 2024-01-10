@@ -2,7 +2,7 @@
 
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { FormEventHandler, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   savePaymentMethod,
@@ -22,6 +22,7 @@ export default function ShippingAddressPage() {
   const { shippingAddress, paymentMethod } = useAppSelector(
     (state) => state.cart
   );
+  const [errMsg, setErrMsg] = useState("");
 
   useEffect(() => {
     if (!shippingAddress.address) {
@@ -30,10 +31,24 @@ export default function ShippingAddressPage() {
     setValue("paymentMethod", paymentMethod);
   }, [paymentMethod, router, setValue, shippingAddress]);
 
-  const submitHandler = ({ paymentMethod }: { paymentMethod: string }) => {
-    dispatch(savePaymentMethod(paymentMethod));
+  const changePaymentMethodHandler = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const val = e.target.value;
+    dispatch(savePaymentMethod(val));
+    setErrMsg(val ? "" : "Please select payment method");
+  };
 
-    router.push("/placeorder");
+  const submitHandler = async ({
+    paymentMethod,
+  }: {
+    paymentMethod: string;
+  }) => {
+    // await dispatch(savePaymentMethod(paymentMethod));
+    setErrMsg(paymentMethod ? "" : "Please select payment method");
+    if (paymentMethod) {
+      router.push("/placeorder");
+    }
   };
 
   return (
@@ -46,27 +61,27 @@ export default function ShippingAddressPage() {
         <h1 className="mb-4 text-xl">Payment Method</h1>
 
         {["PayPal", "Stripe", "CashOnDelivery"].map((payment) => (
-          <div key={payment} className="mb-4">
+          <div key={payment} className="mb-1 flex items-center">
             <input
               type="radio"
               name="paymentMethod"
               className="p-2 outline-none focus:ring-0"
               id={payment}
               value={payment}
-              {...register("paymentMethod", {
-                required: "Please select payment method",
-              })}
+              onChange={changePaymentMethodHandler}
+              checked={payment === paymentMethod}
+              // {...register("paymentMethod", {
+              //   required: "Please select payment method",
+              // })}
             />
             <label htmlFor={payment} className="p-2">
               {payment}
             </label>
           </div>
         ))}
-        {errors.paymentMethod && (
-          <div className="text-red-500">{errors.paymentMethod.message}</div>
-        )}
+        <p className="text-red-500 h-5">{errMsg}</p>
 
-        <div className="mb-4 flex justify-between">
+        <div className="my-4 flex justify-between">
           <button className="btn btn--primary">Next</button>
         </div>
       </form>

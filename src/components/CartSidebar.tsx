@@ -81,10 +81,15 @@ export default function CartSidebar() {
                   ))}
                 </select>
                 <button
-                  className="btn btn--small mt-2"
+                  className="btn btn--icon btn--sm mt-2"
                   onClick={() => removeFromCartHandler(item.id)}
                 >
-                  Delete
+                  <Image
+                    src="/images/trash.svg"
+                    width={18}
+                    height={18}
+                    alt="delete"
+                  ></Image>
                 </button>
               </div>
             ))}

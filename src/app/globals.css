@@ -31,11 +31,39 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+label {
+  @apply ml-1 text-sm;
+}
+
 input,
 select,
 textarea {
-  @apply rounded border p-2 outline-none ring-indigo-300 focus:ring dark:text-white dark:bg-gray-800;
+  @apply rounded-md bg-gray-50 border border-gray-300 py-2 px-3 outline-none ring-indigo-300 focus:ring dark:text-white dark:bg-gray-800;
 }
+
+/* Form */
+
+.form-item {
+  @apply relative pt-3;
+}
+
+.form-item:nth-of-type(n + 1) {
+  @apply mt-1;
+}
+
+.form-item > label {
+  @apply absolute top-0 left-3 bg-gray-50 border border-gray-300 px-1 rounded-md;
+}
+
+.form-item > input {
+  @apply pt-4;
+}
+
+.form-item > .error {
+  @apply h-5 text-red-500 ml-1 text-sm;
+}
+
+/* Card */
 
 .card {
   @apply block rounded-lg md:border border-gray-200 md:shadow-md;
@@ -49,6 +77,8 @@ textarea {
   @apply w-0 h-0 border-8 border-solid border-transparent border-r-gray-300 dark:border-r-gray-900 absolute ml-[73px] -mt-5;
 }
 
+/* Button */
+
 .btn {
   @apply rounded bg-gray-100 text-black py-2 px-4 shadow outline-none hover:bg-gray-200 active:bg-gray-300 dark:text-white dark:bg-gray-800 dark:hover:bg-gray-700;
 }
@@ -57,6 +87,18 @@ textarea {
   @apply bg-amber-300 hover:bg-amber-400 active:bg-amber-500;
 }
 
-.btn--small {
+.btn--sm {
   @apply text-sm py-1 px-3;
+}
+
+.btn--icon {
+  @apply relative w-10 h-10 p-0 rounded-full;
+}
+
+.btn--icon > img {
+  @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2;
+}
+
+.btn--icon.btn--sm {
+  @apply w-7 h-7;
 }

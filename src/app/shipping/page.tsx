@@ -10,6 +10,40 @@ import {
 } from "@/redux/slices/cartSlice";
 import CheckoutWizard from "@/components/CheckoutWizard";
 
+const formRules = [
+  {
+    name: "fullName",
+    label: "Full Name",
+    rule: { required: "Please enter field" },
+  },
+  {
+    name: "address",
+    label: "Address",
+    rule: {
+      required: "Please enter field",
+      minLength: {
+        value: 3,
+        message: "Address is more than 2 chars",
+      },
+    },
+  },
+  {
+    name: "city",
+    label: "City",
+    rule: { required: "Please enter field" },
+  },
+  {
+    name: "postalCode",
+    label: "Postal Code",
+    rule: { required: "Please enter field" },
+  },
+  {
+    name: "country",
+    label: "Country",
+    rule: { required: "Please enter field" },
+  },
+];
+
 export default function ShippingAddressPage() {
   const {
     handleSubmit,
@@ -22,10 +56,11 @@ export default function ShippingAddressPage() {
   const { shippingAddress } = useAppSelector((state) => state.cart);
 
   useEffect(() => {
-    const formLabels = ["fullName", "address", "city", "postalCode", "country"];
-    formLabels.forEach((name: string) => {
-      setValue(name, shippingAddress[name]);
-    });
+    formRules
+      .map((item) => item.name)
+      .forEach((name: string) => {
+        setValue(name, shippingAddress[name]);
+      });
   }, [setValue, shippingAddress]);
 
   const submitHandler = ({
@@ -51,69 +86,21 @@ export default function ShippingAddressPage() {
       >
         <h1 className="mb-4 text-xl">Shipping Address</h1>
         <div className="mb-4">
-          <label htmlFor="fullName">Full Name</label>
-          <input
-            type="text"
-            className="w-full"
-            id="fullName"
-            autoFocus
-            {...register("fullName", { required: "Please enter field" })}
-          />
-          {errors.fullName && (
-            <div className="text-red-500">{errors.fullName?.message}</div>
-          )}
-          <label htmlFor="address">Address</label>
-          <input
-            type="text"
-            className="w-full"
-            id="address"
-            autoFocus
-            {...register("address", {
-              required: "Please enter field",
-              minLength: {
-                value: 3,
-                message: "Address is more than 2 chars",
-              },
-            })}
-          />
-          {errors.address && (
-            <div className="text-red-500">{errors.address?.message}</div>
-          )}
-          <label htmlFor="city">City</label>
-          <input
-            type="text"
-            className="w-full"
-            id="city"
-            autoFocus
-            {...register("city", { required: "Please enter field" })}
-          />
-          {errors.city && (
-            <div className="text-red-500">{errors.city?.message}</div>
-          )}
-          <label htmlFor="postalCode">Postal Code</label>
-          <input
-            type="text"
-            className="w-full"
-            id="postalCode"
-            autoFocus
-            {...register("postalCode", { required: "Please enter field" })}
-          />
-          {errors.postalCode && (
-            <div className="text-red-500">{errors.postalCode?.message}</div>
-          )}
-          <label htmlFor="country">Country</label>
-          <input
-            type="text"
-            className="w-full"
-            id="country"
-            autoFocus
-            {...register("country", { required: "Please enter field" })}
-          />
-          {errors.country && (
-            <div className="text-red-500">{errors.country?.message}</div>
-          )}
+          {formRules.map((item) => (
+            <div key={item.name} className="form-item">
+              <label htmlFor={item.name}>{item.label}</label>
+              <input
+                type="text"
+                className="w-full"
+                id={item.name}
+                autoFocus
+                {...register(item.name, item.rule)}
+              />
+              <p className="error">{errors[item.name]?.message}</p>
+            </div>
+          ))}
         </div>
-        <div className="mb-4 flex justify-between">
+        <div className="">
           <button className="btn btn--primary">Next</button>
         </div>
       </form>

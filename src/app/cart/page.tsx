@@ -58,7 +58,7 @@ export default function CartPage() {
                           height={50}
                           className="p-1"
                         ></Image>
-                        <span>{item.name}</span>
+                        <span className="ml-2">{item.name}</span>
                       </Link>
                     </td>
                     <td className="p-5 text-right">
@@ -95,11 +95,11 @@ export default function CartPage() {
                 <li>
                   <p className="pb-3 text-xl">
                     Subtotal (
-                    {cartItems.reduce((acc, curr) => acc + curr.qty, 0)}) : ${" "}
-                    {itemsPrice}
+                    {cartItems.reduce((acc, curr) => acc + curr.qty, 0)}) :
+                    <span className="font-bold ml-2">$ {itemsPrice}</span>
                   </p>
                 </li>
-                <li>
+                <li className="mt-2">
                   <button
                     onClick={() => router.push("/shipping")}
                     className="btn btn--primary w-full"

@@ -61,7 +61,11 @@ export default function ProductDetailPage({ params: { id } }: Param) {
               <p>Price</p>
               <p>$ {product.price}</p>
             </div>
-            <AddToCart product={product} redirect={true} />
+            <AddToCart
+              product={product}
+              redirect={true}
+              increasePerClick={true}
+            />
           </div>
         </div>
       </div>
