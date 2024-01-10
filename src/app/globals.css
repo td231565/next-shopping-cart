@@ -16,6 +16,11 @@
   }
 }
 
+html,
+body {
+  @apply w-full min-h-dvh m-0 p-0;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -33,11 +38,11 @@ textarea {
 }
 
 .card {
-  @apply mb-5 block rounded-lg border border-gray-200 shadow-md;
+  @apply block rounded-lg md:border border-gray-200 md:shadow-md;
 }
 
 .cart-badge {
-  @apply font-bold text-orange-600 ml-4 mt-1 text-center w-4;
+  @apply font-bold text-white w-8 h-8 leading-8 rounded-full bg-orange-600 text-center;
 }
 
 .caret {
@@ -50,4 +55,8 @@ textarea {
 
 .btn--primary {
   @apply bg-amber-300 hover:bg-amber-400 active:bg-amber-500;
+}
+
+.btn--small {
+  @apply text-sm py-1 px-3;
 }

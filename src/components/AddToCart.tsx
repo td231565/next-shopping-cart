@@ -5,6 +5,7 @@ import { addToCart, type CartItem } from "@/redux/slices/cartSlice";
 import type { Product } from "@/utils/data";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useRouter } from "next/navigation";
+import Image from "next/Image";
 
 interface Param {
   product: Product;
@@ -48,7 +49,7 @@ export default function AddToCart({
   return (
     <>
       {product.stock > 0 && showQty && (
-        <div className="mb-2 flex justify-between">
+        <div className="flex justify-between items-center mb-8">
           <p>Qty</p>
           <div>
             <select
@@ -67,10 +68,16 @@ export default function AddToCart({
       <div>
         {product.stock > 0 ? (
           <button
-            className="btn btn--primary w-full"
+            className="btn btn--primary w-full flex justify-center"
             onClick={addToCartHandler}
+            title="Add to cart"
           >
-            Add to cart
+            <Image
+              src="/images/cart-add.svg"
+              width={22}
+              height={22}
+              alt="add to cart"
+            ></Image>
           </button>
         ) : (
           <button disabled>Out of stock</button>

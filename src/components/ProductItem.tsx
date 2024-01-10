@@ -14,15 +14,15 @@ export default function ProductItem({ product }: { product: Product }) {
           width={400}
           height={400}
           alt={product.name}
-          className="rounded shadow object-cover h-96 w-full"
+          className="shadow object-cover w-full bg-white p-8 md:p-2 rounded-md"
         />
       </Link>
-      <div className="flex flex-col items-center justify-center p-5">
+      <div className="flex flex-col items-center justify-center pt-4 pb-8 md:pb-5">
         <Link href={`product/${product.id}`}>
           <h2 className="text-lg">{product.name}</h2>
         </Link>
         <ProductRate rate={product.rating} count={product.reviews} />
-        <p className="mb-2">$ {product.price}</p>
+        <p className="mt-1 md:mt-2 mb-3 md:mb-2 font-bold">$ {product.price}</p>
         <AddToCart
           showQty={false}
           product={product}
